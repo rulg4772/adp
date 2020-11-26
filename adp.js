@@ -121,7 +121,7 @@ const functionGetLink = (nickname) =>
         const sendOtp = await functionSendOtp(email)
         if (sendOtp.result == 0){
             console.log('[+] Send OTP sukses !')
-            await delay(3000)
+            await delay(5000)
             const getOtp = await functionGetLink(`${nama}${rand}`)
             var otp = getOtp.match(/(\d+)/)[0]
             console.log(`[+] OTP ${otp}`)
