@@ -88,7 +88,7 @@ const functionGetLink = (nickname) =>
                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                'accept-encoding': 'gzip, deflate, br',
                'accept-language': 'en-US,en;q=0.9',
-               'cookie': `_ga=GA1.2.1434039633.1579610017; _gid=GA1.2.374838364.1579610017; _gat=1; surl=mixalo.com%2F${nickname}`,
+               'cookie': `_ga=GA1.2.1434039633.1579610017; _gid=GA1.2.374838364.1579610017; _gat=1; surl=civoo.com%2F${nickname}`,
                'sec-fetch-mode': 'navigate',
                'sec-fetch-site': 'same-origin',
                'upgrade-insecure-requests': 1,
@@ -114,15 +114,18 @@ const functionGetLink = (nickname) =>
         var nama = random.first()
         const last = random.last()
         var rand = randomize('0', 5)
-        var email = `${nama}${rand}@mixalo.com`
+        var email = `${nama}${rand}@civoo.com`
         var nick = `${nama}${rand}`
         const name = `${nama}${last}`
         console.log(`[+] Email ${email}`)
         const sendOtp = await functionSendOtp(email)
         if (sendOtp.result == 0){
             console.log('[+] Send OTP sukses !')
-            await delay(5000)
-            const getOtp = await functionGetLink(`${nama}${rand}`)
+            do {
+                console.log('[+] Mendapatkan OTP...')
+                await delay(10000)
+                var getOtp = await functionGetLink(`${nama}${rand}`)
+            } while (getOtp == 'Email Generator - temporary email address')
             var otp = getOtp.match(/(\d+)/)[0]
             console.log(`[+] OTP ${otp}`)
             const verifOtp = await functionVerifOtp(email, otp)
